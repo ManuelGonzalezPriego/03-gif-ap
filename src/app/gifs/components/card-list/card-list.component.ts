@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { GifsService } from '../../services/gifs.service';
+import { Component, Input } from '@angular/core';
+import { Gif, Images } from '../../interfaces/gif.interfaces';
 
 @Component({
   selector: 'gifs-card-list',
@@ -8,8 +8,18 @@ import { GifsService } from '../../services/gifs.service';
 })
 export class CardListComponent {
 
-  constructor(private gifsService:GifsService){
+  constructor(){
+  }
 
+  @Input()
+  public listadoGifs:Gif[]=[];
+
+  images(index:number):string{
+    return this.listadoGifs[index].images.preview_webp.url;
+  }
+
+  title(index:number):string{
+    return this.listadoGifs[index].title;
   }
 
 }
