@@ -14,12 +14,14 @@ export class CardListComponent {
   @Input()
   public listadoGifs:Gif[]=[];
 
-  images(index:number):string{
-    return this.listadoGifs[index].images.preview_webp.url;
+  images(index:Gif):string{
+    const i:number=this.listadoGifs.indexOf(index);
+    return this.listadoGifs[i].images.preview_webp.url;
   }
 
-  title(index:number):string{
-    return this.listadoGifs[index].title;
+  title(index:Gif):string{
+    const i:number=this.listadoGifs.indexOf(index);
+    return this.listadoGifs[i].title;
   }
 
 }

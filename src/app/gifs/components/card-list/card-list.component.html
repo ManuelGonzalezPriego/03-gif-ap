@@ -1,14 +1,14 @@
-<div class="row">
+<div class="row ">
   <!-- Si las pantalla es mediana se come menos columnas y si es mas pequeña se come más columnas -->
-  <div class="col-md-3 col-sm-6">
+  <div *ngFor="let gif of listadoGifs" class="col-md-3 col-sm-6 rounded">
     <div class="card mb-2 text-center bg-dark">
-      <img src="{{images(0)}}" class="card-img-top" alt="...">
+      <img src="{{images(gif)}}" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title text-white">{{title(0)}}</h5>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title text-white">{{title(gif)}}</h5>
+        <a href="#" class="btn btn-primary">Download</a>
       </div>
     </div>
   </div>
 
 </div>
-<!--*ngFor="let gif of listadoGifs "--> futuro
+
