@@ -17,5 +17,10 @@ export class SidebarComponent {
   get historiales(){
     return this.gifsService.historialEtiquetas
   }
+
+  buscarHistoral(busqueda:string):void{
+    this.gifsService.buscarEtiqueta(busqueda);
+  }
+
 }
 

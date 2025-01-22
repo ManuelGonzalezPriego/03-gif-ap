@@ -11,7 +11,27 @@ export class GifsService {
   private url:string='https://api.giphy.com/v1/gifs';
   public listadoGifs:Gif[]=[];
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.cargarLocalStorage();
+  }
+
+  private almacenarLocalStorage():void{
+    localStorage.setItem('historial',JSON.stringify(this._historialEtiquetas))
+  }
+
+  private cargarLocalStorage():void{
+    if(!localStorage.getItem('historial'))return;
+
+    //Con la exclamación indicamos que por narices va a regresarle un string, en este caso estamos seguros por que
+    //este local extorage ya lo formateamos anterior mente
+    this._historialEtiquetas=JSON.parse(localStorage.getItem('historial')!);
+
+    if(this._historialEtiquetas.length===0){
+      return;
+    }else{
+      this.buscarEtiqueta(this._historialEtiquetas[0]);
+    }
+  }
 
   get historialEtiquetas(){
     //*Estos ... se colocan para hacer una copia del array original y no modificar lo. Es decir crear una copiar.
@@ -25,11 +45,6 @@ export class GifsService {
   //*El unshift nos coloca el elemento pasado por parametro al principio de la lista, si este ya esta contenido en la lista solo se reordena.
 
   buscarEtiqueta(etiqueta: string): void{
-
-    //Limitamos el largo del historial borrando el ultimo cuando el largo llegue a 10
-    if(this._historialEtiquetas.length>9){
-      this._historialEtiquetas.pop();
-    }
     //Con trim podemos comprobar si tiene espacios en blanco si esta tiene los elimina y lo añade y si es una cadena
     //vacía nos dara un mensaje de error por consola.
     if(!etiqueta.trim()){
@@ -42,8 +57,17 @@ export class GifsService {
 
       this._historialEtiquetas.unshift(etiqueta);
 
-      console.log(this._historialEtiquetas);
+
     }
+
+    if(this._historialEtiquetas.length>10){
+      this._historialEtiquetas.pop();
+    }
+
+    this.almacenarLocalStorage();
+
+    console.log(this._historialEtiquetas);
+
     const params= new HttpParams()
       .set('api_key', this.apiKey)
       .set('limit',10)

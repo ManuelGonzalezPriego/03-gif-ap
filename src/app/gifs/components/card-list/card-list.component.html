@@ -1,11 +1,12 @@
 <div class="row ">
   <!-- Si las pantalla es mediana se come menos columnas y si es mas pequeña se come más columnas -->
   <div *ngFor="let gif of listadoGifs" class="col-md-3 col-sm-6 rounded">
-    <div class="card mb-2 text-center bg-dark">
-      <img src="{{images(gif)}}" class="card-img-top" alt="...">
+    <div class="card mb-2 text-center bg-dark" >
+      <img src="{{images(gif)}}" class="card-img-top" style="height: 8rem;" alt="...">
       <div class="card-body">
         <h5 class="card-title text-white">{{title(gif)}}</h5>
-        <a href="#" class="btn btn-primary">Download</a>
+        <p *ngIf="author(gif)!=''" class="card-text text-white">Autor:{{author(gif)}}</p>
+        <button href="#" class="btn btn-primary">Download</button>
       </div>
     </div>
   </div>
